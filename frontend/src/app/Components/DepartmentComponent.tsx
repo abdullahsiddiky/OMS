@@ -41,7 +41,7 @@ export default function Deparment(){
                 >
                   <td className="py-4 px-6">
                     <p className="text-sm font-semibold leading-6 text-gray-900">
-                      <a href="/">{deparment.name}</a>
+                      <a href={`/department/${deparment.id}`}>{deparment.name}</a>
                     </p>
                   </td>
                 </tr>

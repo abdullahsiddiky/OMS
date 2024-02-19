@@ -1,5 +1,5 @@
 import { Col, Row } from "antd";
-export default function Layout({
+export default function DashboardLayout({
   children,
   departments,
   expenses,
@@ -11,7 +11,6 @@ export default function Layout({
   return (
     <>
       {children}
-     
       <div className="grid grid-cols-3 gap-6">
         <div >
           {departments}
