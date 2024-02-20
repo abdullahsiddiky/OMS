@@ -1,6 +1,8 @@
+import Employees from "@/app/Components/EmployeeComponent"
+
 export default function Page({ params }: { params: { deptid: number } }){
-    console.log(params)
+    // console.log(params)
     return (
-        <div><h1>dsfkal {params.deptid}</h1></div>
+        <div><Employees/></div>
     )
 }
