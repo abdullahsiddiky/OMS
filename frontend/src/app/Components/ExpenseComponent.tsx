@@ -35,6 +35,9 @@ export default function Expences(){
       const totalExpense = expense.reduce((total, expense) => total + expense.amount, 0);
      
       return (
+        <div className="border border-gray-800 py-5 px-1.5">
+
+        <p>Date</p>
         <div className="border border-gray-800">
         <table className="min-w-full divide-y divide-gray-100">
           <thead>
@@ -71,5 +74,6 @@ export default function Expences(){
           </tbody>
         </table>
       </div>
+        </div>
       );
 }
