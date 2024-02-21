@@ -4,7 +4,7 @@ export default function Page({ params }: { params: { employeeid: number } }){
    console.log(params)
     return(
         <div>
-            <ExployeeProfile/>
+            <ExployeeProfile id={params.employeeid}/>
         </div>
     )
 

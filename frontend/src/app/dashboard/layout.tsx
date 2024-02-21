@@ -3,10 +3,12 @@ export default function DashboardLayout({
   children,
   departments,
   expenses,
+  operations
 }: {
   children: React.ReactNode;
   departments: React.ReactNode;
   expenses: React.ReactNode;
+  operations:React.ReactNode
 }) {
   return (
     <>
@@ -19,7 +21,7 @@ export default function DashboardLayout({
           {expenses}
         </div>
         <div >
-          <h1>operation</h1>
+          {operations}
         </div>
       </div>
     </>

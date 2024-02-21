@@ -57,5 +57,4 @@ export default function Employees() {
       </table>
     </div>
   );
-  // `/department/${deparment.id}`
 }
