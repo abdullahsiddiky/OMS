@@ -1,3 +1,5 @@
+import NavBar from "./Nav";
+
 export default function Deparment(){
     const deparment = [
         {
