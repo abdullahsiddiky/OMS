@@ -5,7 +5,7 @@ export default function Operation() {
       <div className="border border-gray-800">
         <div>
           <a
-            href="/"
+            href="/add_department"
             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             Add Department
@@ -13,7 +13,7 @@ export default function Operation() {
         </div>
         <div>
           <a
-            href="/"
+            href="/add_employee"
             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             Add Employee
@@ -21,7 +21,7 @@ export default function Operation() {
         </div>
         <div>
           <a
-            href="/"
+            href="/add_expense"
             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
           >
             Add Expense
