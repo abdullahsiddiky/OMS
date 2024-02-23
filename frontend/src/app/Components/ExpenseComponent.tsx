@@ -3,42 +3,44 @@ export default function Expences(){
     const expense = [
         {
           id: 1,
-          name: "Cost A",
+          name: "Salary",
           amount:100
         },
         {
           id: 2,
-          name: "Cost B",
+          name: "Coffee",
           amount:50,
         },
         {
           id: 3,
-          name: "Cost C",
+          name: "Tea",
           amount:350,
         },
         {
           id: 4,
-          name: "Cost D",
+          name: "Powder Milk",
           amount:110,
         },
         {
           id: 5,
-          name: "Cost E",
+          name: "Electricity",
           amount:66,
         },
         {
             id: 6,
-            name: "Cost F",
+            name: "Hand Wash",
             amount:150
           },
       ];
       const totalExpense = expense.reduce((total, expense) => total + expense.amount, 0);
      
       return (
-        <div className="border border-gray-800 py-5 px-1.5">
+       
+ <div>
 
-        <p>Date</p>
-        <div className="border border-gray-800">
+   <p>Date</p>
+ 
+        <div className="border border-gray-800 rounded">
         <table className="min-w-full divide-y divide-gray-100">
           <thead>
             <tr>
@@ -74,6 +76,6 @@ export default function Expences(){
           </tbody>
         </table>
       </div>
-        </div>
+     </div>
       );
 }

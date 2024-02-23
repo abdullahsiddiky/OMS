@@ -1,8 +1,8 @@
 // import Deparment from "@/app/Components/DepartmentComponent";
 
 import Deparment from "@/app/Components/DepartmentComponent";
-import NavBar from "@/app/Components/Nav";
 
+import { Col, Row } from 'antd';
 export default function Page() {
   
     return(

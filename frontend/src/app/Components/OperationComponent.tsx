@@ -2,7 +2,7 @@ import Link from "next/navigation";
 export default function Operation() {
   return (
     <div>
-      <div className="border border-gray-800">
+      <div className="border border-gray-800 rounded mr-2">
         <div>
           <a
             href="/add_department"

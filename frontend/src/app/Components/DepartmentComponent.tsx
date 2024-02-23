@@ -28,7 +28,7 @@ export default function Deparment(){
           },
       ];
       return (
-        <div className="border border-gray-800">
+        <div className="border border-gray-800 rounded ml-2">
           <table className="min-w-full divide-y divide-gray-100">
             <thead>
               <tr>
