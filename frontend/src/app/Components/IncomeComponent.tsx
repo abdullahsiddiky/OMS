@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 export default function Income() {
-  const expense = [
+  const income = [
     {
       id: 1,
       name: "Source A",
@@ -32,8 +32,8 @@ export default function Income() {
       amount: 150,
     },
   ];
-  const totalExpense = expense.reduce(
-    (total, expense) => total + expense.amount,
+  const totalIncome = income.reduce(
+    (total, income) => total + income.amount,
     0
   );
 
@@ -49,14 +49,15 @@ export default function Income() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {expense.map((expense) => (
-              <tr key={expense.id} className="">
+            {income.map((income) => (
+              <tr key={income.id} className="">
                 <td className="py-4 px-6">
                   <p className="text-sm font-semibold leading-6 text-gray-900">
-                    <a href="/">{expense.name}</a>
+                    {/* <a href="/">{expense.name}</a> */}
+                    <p>{income.name}</p>
                   </p>
                 </td>
-                <td className="py-4 px-6">{expense.amount}</td>
+                <td className="py-4 px-6">{income.amount}</td>
                 <td className="py-4 px-6">
                   <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
                     delete
@@ -72,7 +73,7 @@ export default function Income() {
                 Total
               </td>
               <td className="py-4 px-6 text-sm font-semibold leading-6 text-gray-900">
-                {totalExpense}
+                {totalIncome}
               </td>
               <td></td>
             </tr>

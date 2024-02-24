@@ -68,7 +68,8 @@ export default function Expences() {
               <tr key={expense.id} className="">
                 <td className="py-4 px-6">
                   <p className="text-sm font-semibold leading-6 text-gray-900">
-                    <a href="/">{expense.name}</a>
+                    {/* <a href="/">{expense.name}</a> */}
+                    <p>{expense.name}</p>
                   </p>
                 </td>
                 <td className="py-4 px-6">{expense.amount}</td>
