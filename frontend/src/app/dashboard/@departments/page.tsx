@@ -2,13 +2,11 @@
 
 import Deparment from "@/app/Components/DepartmentComponent";
 
-import { Col, Row } from 'antd';
+import { Col, Row } from "antd";
 export default function Page() {
-  
-    return(
-        <div>
-          <Deparment/>
-        </div>
-    )
-    
+  return (
+    <div>
+      <Deparment />
+    </div>
+  );
 }

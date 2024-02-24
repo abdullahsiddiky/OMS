@@ -20,7 +20,7 @@ export default function DashboardLayout({
         <div className="col-start-1 col-span-1">{departments}</div>
         <div className="col-start-2 col-span-4">{expenses}</div>
         <div className="col-start-6 col-span-1">{operations}</div>
-      </div>  
+      </div>
     </>
   );
 }

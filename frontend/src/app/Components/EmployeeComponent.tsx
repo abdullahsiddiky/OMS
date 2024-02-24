@@ -41,7 +41,9 @@ export default function Employees() {
             <tr key={person.id} className="">
               <td className="py-4 px-6">
                 <p className="text-sm font-semibold leading-6 text-gray-900">
-                  <a href= {'/employee/'+person.id} >{person.id } {person.name}</a>
+                  <a href={"/employee/" + person.id}>
+                    {person.id} {person.name}
+                  </a>
                 </p>
               </td>
 
