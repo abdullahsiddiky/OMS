@@ -1,6 +1,6 @@
 export default function NavBar(){
     return(
-        <nav className="bg-white border-gray-200 dark:bg-gray-900 mb-4">
+        <nav className="bg-white border-gray-200 dark:bg-gray-900">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
   
    
