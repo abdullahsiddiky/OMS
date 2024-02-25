@@ -1,23 +1,15 @@
 export default function DatePicker() {
-    // const endDate = new Date();
-    // const startDate = new Date(endDate);
-    // startDate.setDate(endDate.getDate() - 30);
-    // console.log(endDate)
-    // console.log(startDate)
-      const formatDate = (date:any) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-    const date =  new Date()
-    const endDate = formatDate(date).toString()
-    date.setDate(date.getDate() - 30);
-    const startDate= formatDate(date).toString()
-    console.log(endDate)
-    console.log(startDate)
+  const formatDate = (date: any) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+  const date = new Date();
+  const endDate = formatDate(date).toString();
+  date.setDate(date.getDate() - 30);
+  const startDate = formatDate(date).toString();
 
-   
   return (
     <div>
       <form>
@@ -36,7 +28,6 @@ export default function DatePicker() {
           id="enddate"
           name="enddate"
           defaultValue={endDate}
-      
         />
         <button className="bg-green-800 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full ml-2">
           Update

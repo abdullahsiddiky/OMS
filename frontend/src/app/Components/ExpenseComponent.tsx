@@ -31,20 +31,13 @@ export default function Expences() {
       amount: 150,
     },
     {
-      id: 6,
-      name: "Hand Wash",
+      id: 7,
+      name: "Miscellaneous",
       amount: 150,
     },
-    {
-      id: 6,
-      name: "Hand Wash",
-      amount: 150,
-    },
-    {
-      id: 6,
-      name: "Hand Wash",
-      amount: 150,
-    },
+    
+    
+  
   ];
   const totalExpense = expense.reduce(
     (total, expense) => total + expense.amount,

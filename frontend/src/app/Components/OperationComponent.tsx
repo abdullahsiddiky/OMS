@@ -27,6 +27,14 @@ export default function Operation() {
             Add Expense
           </a>
         </div>
+        <div>
+          <a
+            href="/add_income"
+            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+          >
+            Add Income
+          </a>
+        </div>
       </div>
     </div>
   );
