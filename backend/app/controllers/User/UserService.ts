@@ -1,4 +1,4 @@
-import UserQuery from './UserQuery.js'
+import UserQuery from './UserQuery.ts'
 
 export default class userService {
   private Query: UserQuery
@@ -21,7 +21,16 @@ export default class userService {
   // public async GetData({auth}){
   //  return  this.Query.GetData({auth})
   // }
-  public async  RegisterUser(payload:any){
+  public RegisterUser(payload:any){
+    
     return this.Query.RegisterUser(payload)
   }
+  public LoginUser(payload:any){
+    return this.Query.Login(payload)
+  }
+  public Logout(auth:any){
+   return this.Query.Logout(auth)
+  }
+
 }
+

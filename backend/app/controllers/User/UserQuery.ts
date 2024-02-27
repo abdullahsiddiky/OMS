@@ -1,5 +1,5 @@
-
-import User from "#models/user";
+import User from '#models/user'
+import hash from '@adonisjs/core/services/hash'
 export default class UserQuery {
   // public async RegisterUser(payload) {
   //   await User.create(payload)
@@ -47,7 +47,33 @@ export default class UserQuery {
   //   const todo = await Todo.query().where('user_id', user.id).orderBy('created_at', 'desc')
   //   return todo
   // }
-  public async RegisterUser(payload:any){
-    return await User.create(payload)
+  public async RegisterUser(payload: any) {
+    if (await User.create(payload)) {
+      return {
+        status: 200,
+      }
+    }
   }
+  public async Login(payload: any) {
+    try {
+      const user = await User.verifyCredentials(payload.email, payload.password)
+      const token = await User.accessTokens.create(user)
+      return {
+        status: 200,
+        token: token,
+      }
+    } catch (error) {
+      return error.status
+    }
+  }
+  public async Logout(auth: any) {
+  // const user = await auth.authenticate()
+  //   return user.
+  //   if (user) {
+  //   await User.accessTokens.delete(user, user.toke)
+  // }
+  return User.accessTokens.all(auth.user!)
+ 
+ 
+}
 }
