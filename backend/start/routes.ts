@@ -8,7 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
-
+import '#controllers/User/User'
 router.get('/', async () => {
   return {
     hello: 'world',

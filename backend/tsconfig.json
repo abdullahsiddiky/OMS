@@ -3,6 +3,8 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./build",
+    "noEmit":true,
+    "allowImportingTsExtensions": true,
     "paths": {
       "#controllers/*": ["./app/controllers/*.js"],
       "#exceptions/*": ["./app/exceptions/*.js"],
@@ -21,5 +23,6 @@
       "#start/*": ["./start/*.js"],
       "#config/*": ["./config/*.js"],
     },
+
   },
 }
