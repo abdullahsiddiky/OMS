@@ -1,54 +1,19 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
+// import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { HttpContext } from '@adonisjs/core/http'
+import vine from '@vinejs/vine'
 export default class UserValidator {
-  public async RegisterUser(ctx: HttpContextContract) {
-    const RegisterUserSchema = schema.create({
-      name: schema.string(),
-      email: schema.string([rules.unique({ table: 'users', column: 'email' }), rules.email()]),
-      password: schema.string(),
-    })
-    const msg = {
-      'name.required': 'name required check name',
-      'email.required': 'check email format',
-      'password.required': 'password required',
-    }
-    const payload = await ctx.request.validate({ schema: RegisterUserSchema, messages: msg })
-    return payload
-  }
-  public async LoginUser(request) {
-    const LoginUserSchema = schema.create({
-      email: schema.string([rules.exists({ table: 'users', column: 'email' })]),
-      password: schema.string(),
-    })
-    const msg = {
-      'email.required': 'email does not match',
-      'password.required': 'password does not match',
-      'email.exists': 'email does not exists',
-    }
-    const payload = await request.validate({ schema: LoginUserSchema, messages: msg })
-    // console.log('validated from validator', payload)
-    return payload
-  }
-  public async Logout(request){
-    const LogoutSchema =schema.create({
-      id:schema.number([rules.exists({table:'users', column:'id'})])
-    })
-    const msg = {
-      'id.exists':'id does not exists'
-    }
-    const payload = await request.validate({schema:LogoutSchema, messages:msg })
-    return payload 
-  }
-  public async CreatePost(request) {
-    const CreatePostSchema = schema.create({
-      content: schema.string(),
-    })
-    const msg = {
-      'contetn.required': 'content required',
-    }
-
-    const payload = await request.validate({ schema: CreatePostSchema, messages: msg })
-    console.log(payload)
-    return payload
+  public async RegisterUser(ctx: HttpContext) {
+    const data = ctx.request.all()
+    const createUserValidator = vine.compile(
+      vine.object({
+        fullName: vine.string().trim(),
+        email: vine.string().unique(async (db, value) => {
+          const user = await db.from('users').where('email', value).first()
+          return !user
+        }),
+        password: vine.string().trim(),
+      })
+    )
+    return await createUserValidator.validate(data)
   }
 }

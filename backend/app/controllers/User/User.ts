@@ -1,11 +1,11 @@
 
 import router from '@adonisjs/core/services/router'
-// import UsersController from './UsersController.js'
 import UsersController from '#controllers/User/UsersController'
 
 
 router.group(() => {
-  router.get('check',[UsersController,'check'])
+
+  router.post('register',[UsersController, 'RegisterUser'])
   
     // Route.post('register',"Modules/User/UsersController.RegisterUser")
     // Route.post('login',   "Modules/User/UsersController.LoginUser")
