@@ -17,6 +17,7 @@ export default class UserValidator {
   }
 
   public async LoginUser(request:any){
+
     const loginUserValidator = vine.compile(
       vine.object({
         email:vine.string().unique(async (db, value)=>{
@@ -26,6 +27,9 @@ export default class UserValidator {
         password:vine.string().trim()
       })
     )
-      return await loginUserValidator.validate(request.all())
+    const requestData = request.body;
+    console.log('validator called', requestData)
+  
+      return await loginUserValidator.validate(request.body())
   }
 }

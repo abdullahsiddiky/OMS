@@ -1,10 +1,64 @@
+import axios from '../service/instance';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 export default function Login() {
+  const id = cookies().get("token")?.value;
+  if (id) {
+    redirect("dashboard");
+  }
+  async function axiosRequests(url: string, email: string, password: string) {
+    "use server";
+    try {
+      const result = await axios.post(
+        url,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+  async function login(formData: FormData) {
+    "use server";
+    const validationSchema = z.object({
+      email: z.string().email(),
+      password: z.string(),
+    });
+    const res = validationSchema.safeParse({
+      email: formData.get('email'),
+      password: formData.get("password"),
+    });
+    // console.log(res)
+    if (res.success) {
+      const data: any = await axiosRequests(
+        "users/login",
+        res.data.email,
+        res.data.password
+      );
+        console.log(data.data.token)
+      if (data.data.status == 200) {
+        cookies().set("token", data.data.token);
+        redirect("profile");
+      } else {
+        console.log(data);
+        redirect("/");
+      }
+    }
+      
+  }
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm"></div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" action={login}>
           <div>
             <label
               htmlFor="email"

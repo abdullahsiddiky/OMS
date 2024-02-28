@@ -21,10 +21,13 @@ export default class UsersController {
   public async LoginUser({request}: HttpContext) {
     //422
     try {
-      return this.Service.LoginUser(await this.Validator.LoginUser(request))
+      console.log('controller called')
+      const payload = await this.Validator.LoginUser(request)
+      return this.Service.LoginUser(payload)
     } catch (error) {
-      return error.status
+      return error
     }
+ 
   }
   public async Logout({auth}:HttpContext){
 // const user = auth.authenticate()
