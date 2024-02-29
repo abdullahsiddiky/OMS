@@ -6,10 +6,10 @@ export default class Expense extends BaseModel {
   declare id: number
 
   @column()
-  declare title:string
-  
+  declare title: string
+
   @column()
-  declare category:string
+  declare category: string
 
   @column()
   declare amount: number

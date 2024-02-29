@@ -1,4 +1,4 @@
-import axios from '../service/instance';
+import axios from "../service/instance";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -32,7 +32,7 @@ export default function Login() {
       password: z.string(),
     });
     const res = validationSchema.safeParse({
-      email: formData.get('email'),
+      email: formData.get("email"),
       password: formData.get("password"),
     });
     // console.log(res)
@@ -42,7 +42,6 @@ export default function Login() {
         res.data.email,
         res.data.password
       );
-        console.log(data.data.token)
       if (data.data.status == 200) {
         cookies().set("token", data.data.token);
         redirect("profile");
@@ -51,7 +50,6 @@ export default function Login() {
         redirect("/");
       }
     }
-      
   }
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
