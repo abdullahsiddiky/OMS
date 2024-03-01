@@ -32,4 +32,12 @@ export default class UserValidator {
 
     return await loginUserValidator.validate(request.body())
   }
+  public async AddDept(request:any){
+    const departmentValidator = vine.compile(
+      vine.object({
+        deptname: vine.string().trim(),
+      })
+    )
+    return await departmentValidator.validate(request.body())
+  }
 }

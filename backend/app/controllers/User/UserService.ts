@@ -16,6 +16,9 @@ export default class userService {
   public Logout(auth:any){
    return this.Query.Logout(auth)
   }
+  public AddDept(payload:any, auth:any){
+    return this.Query.AddDept(payload, auth)
+  }
 
 }
 

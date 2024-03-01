@@ -35,6 +35,14 @@ export default class UsersController {
     }catch(error){
       return error.status
     }
-      
+  }
+  public async AddDept({request, auth}:HttpContext){
+    try{
+      const payload = await this.Validator.AddDept(request)
+      return this.Service.AddDept(payload, auth)
+    }catch(error){
+      return error
+    }
+
   }
 }

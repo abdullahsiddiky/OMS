@@ -10,6 +10,7 @@ router.group(() => {
   router.post('login',[UsersController, 'LoginUser'])
   
   router.group(()=>{
+    router.post('add_dept',[UsersController, 'AddDept'])
     router.post('logout',[UsersController,'Logout'])
     
   }).use(middleware.auth())

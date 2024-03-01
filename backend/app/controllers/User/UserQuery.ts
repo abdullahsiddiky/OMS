@@ -1,3 +1,4 @@
+import Department from '#models/department'
 import User from '#models/user'
 export default class UserQuery {
   public async RegisterUser(payload: any) {
@@ -30,6 +31,23 @@ export default class UserQuery {
     } catch (error) {
       return {
         status: 401,
+      }
+    }
+  }
+  public async AddDept(payload:any, auth:any){
+
+    try{
+      const user = await auth.authenticate()
+      await Department.create({
+        deptName:payload.deptname,
+        userId:user.id
+      })
+      return {
+        status:200
+      }
+    }catch(error){
+      return {
+        status:422
       }
     }
   }
