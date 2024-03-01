@@ -117,6 +117,18 @@ export default class UserQuery {
         status: 422,
       }
     }
-
+  }
+  public async ListEmployee(payload:any){
+   try{
+     const department = await Department.query().where('id', payload.deptId).preload('employees')
+     return {
+      status:200,
+      department
+     }
+   }catch(error){
+    return{
+      status:422
+    }
+   }
   }
 }

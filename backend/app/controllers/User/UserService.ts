@@ -31,6 +31,9 @@ export default class userService {
   public AddEmployee(payload:any, auth:any){
     return this.Query.AddEmployee(payload, auth)
   }
+  public ListEmployee(payload:any ){
+    return this.Query.ListEmployee(payload)
+  }
 
 }
 

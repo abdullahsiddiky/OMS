@@ -1,16 +1,18 @@
 import { cookies } from "next/headers";
 import axios from "../service/instance";
 import NavBar from "./Nav";
+import { redirect } from "next/navigation";
 
 export default async function Deparment() {
   const token = cookies().get("token")?.value;
+  if(!token){
+    redirect('/')
+  }
   const data = await axios.get("/users/list_departments", {
     headers: {
       Authorization: "Bearer " + token,
     },
   });
-  console.log(data);
-  
   return (
     <div className="border border-gray-800 rounded ml-2 h-[calc(100vh-350px)] overflow-auto ">
       <table className="min-w-full divide-y divide-gray-100">

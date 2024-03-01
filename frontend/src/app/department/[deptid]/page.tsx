@@ -2,11 +2,12 @@ import Employees from "@/app/Components/EmployeeComponent";
 import NavBar from "@/app/Components/Nav";
 
 export default function Page({ params }: { params: { deptid: number } }) {
-  // console.log(params)
+  const deptId = Number(params.deptid)
+ 
   return (
     <div>
       <NavBar />
-      <Employees />
+      <Employees deptId = {deptId}/>
     </div>
   );
 }

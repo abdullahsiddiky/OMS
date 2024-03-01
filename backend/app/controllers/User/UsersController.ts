@@ -14,7 +14,7 @@ export default class UsersController {
       return this.Service.RegisterUser(await this.Validator.RegisterUser(ctx))
     } catch (error) {
       return {
-        status:400
+        status: 400,
       }
     }
   }
@@ -28,54 +28,61 @@ export default class UsersController {
     }
   }
   public async Logout({ auth }: HttpContext) {
-
-    try{
-
+    try {
       return this.Service.Logout(auth)
-    }catch(error){
+    } catch (error) {
       return error.status
     }
   }
-  public async AddDept({request, auth}:HttpContext){
-    try{
+  public async AddDept({ request, auth }: HttpContext) {
+    try {
       const payload = await this.Validator.AddDept(request)
       return this.Service.AddDept(payload, auth)
-    }catch(error){
+    } catch (error) {
       return error
     }
   }
-  public async AddExpense({request, auth}:HttpContext){
-
-    try{
+  public async AddExpense({ request, auth }: HttpContext) {
+    try {
       return this.Service.AddExpense(await this.Validator.AddExpense(request), auth)
-    }catch(error){
+    } catch (error) {
       return error
     }
   }
-  public async AddIncome({request, auth}:HttpContext){
-    console.log("hit income")
-    try{
-      return this.Service.AddIncome(await this.Validator.AddIncome(request),auth)
-    }catch(error){
+  public async AddIncome({ request, auth }: HttpContext) {
+    console.log('hit income')
+    try {
+      return this.Service.AddIncome(await this.Validator.AddIncome(request), auth)
+    } catch (error) {
       return error
     }
   }
-  public async ListDepartments({auth}:HttpContext){
+  public async ListDepartments({ auth }: HttpContext) {
     console.log('list hit')
-    try{
+    try {
       return this.Service.ListDepartments(auth)
-    }catch(error){
+    } catch (error) {
       return {
-        status:200
+        status: 200,
       }
     }
   }
-  public async AddEmployee({request,auth}:HttpContext){
-    try{
+  public async AddEmployee({ request, auth }: HttpContext) {
+    try {
       const payload = await this.Validator.AddEmployee(request)
       return this.Service.AddEmployee(payload, auth)
-    }catch(error){
-      return{
+    } catch (error) {
+      return {
+        status: 422,
+      }
+    }
+  }
+  public async ListEmployee({ request}: HttpContext) {
+    try {
+      const payload = await this.Validator.ListEmployee(request)
+      return this.Service.ListEmployee(payload)
+    } catch (error) {
+      return {
         status:422
       }
     }

@@ -5,13 +5,22 @@ import { redirect } from "next/navigation";
 
 export default async function AddEmployee() {
   const token = cookies().get("token")?.value;
+  if (!token) {
+    redirect("/");
+  }
   const department = await axios.get("/users/list_departments", {
     headers: {
       Authorization: "Bearer " + token,
     },
   });
 
-  async function axiosRequests(url: string, name: string, email: string, departmentId:number, salary:number) {
+  async function axiosRequests(
+    url: string,
+    name: string,
+    email: string,
+    departmentId: number,
+    salary: number
+  ) {
     "use server";
     try {
       const result = await axios.post(
@@ -19,13 +28,13 @@ export default async function AddEmployee() {
         {
           name: name,
           email: email,
-          departmentId:departmentId,
-          salary:salary
+          departmentId: departmentId,
+          salary: salary,
         },
         {
-          headers:{
-            Authorization:"Bearer " + token
-          }
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
       );
       return result;
@@ -38,16 +47,16 @@ export default async function AddEmployee() {
     const validationSchema = z.object({
       name: z.string(),
       email: z.string().email(),
-      departmentId:z.number(),
+      departmentId: z.number(),
       salary: z.number(),
     });
     const res = validationSchema.safeParse({
       name: formData.get("name"),
-      email:formData.get('email'),
-      departmentId: Number(formData.get('department')),
-      salary:Number(formData.get('salary'))
+      email: formData.get("email"),
+      departmentId: Number(formData.get("department")),
+      salary: Number(formData.get("salary")),
     });
-console.log(res)
+    console.log(res);
 
     if (res.success) {
       const data: any = await axiosRequests(
@@ -64,7 +73,7 @@ console.log(res)
       }
     }
   }
- 
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm"></div>
@@ -124,7 +133,10 @@ console.log(res)
                   <div key={item.id}>
                     <h1>{item.fullName}</h1>
                     {item.departments.map((d: any) => (
-                      <option key={d.id} value={d.id}> {d.deptName}</option>
+                      <option key={d.id} value={d.id}>
+                        {" "}
+                        {d.deptName}
+                      </option>
                     ))}
                   </div>
                 ))}
