@@ -8,9 +8,9 @@ router.group(() => {
 
   router.post('register',[UsersController, 'RegisterUser'])
   router.post('login',[UsersController, 'LoginUser'])
-
+  
   router.group(()=>{
-
     router.post('logout',[UsersController,'Logout'])
+    
   }).use(middleware.auth())
   }).prefix('users')

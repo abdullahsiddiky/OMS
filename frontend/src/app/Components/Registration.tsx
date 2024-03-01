@@ -1,20 +1,70 @@
+import { redirect } from "next/navigation";
+import axios from "../service/instance";
+import { z } from "zod";
 export default function Registration() {
+  async function axiosRequests(
+    url: string,
+    fullName: string,
+    email: string,
+    password: string
+  ) {
+    "use server";
+    try {
+      const result = axios.post(url, {
+        fullName: fullName,
+        email: email,
+        password: password,
+      });
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+  async function registration(formData: FormData) {
+    "use server";
+    const validationSchema = z.object({
+      fullName: z.string(),
+      email: z.string().email(),
+      password: z.string(),
+    });
+    const res = validationSchema.safeParse({
+      fullName: formData.get("fullName"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    });
+
+    if (res.success) {
+      const data:any = await axiosRequests(
+        "users/register",
+        res.data.fullName,
+        res.data.email,
+        res.data.password
+      );
+      // console.log(data.data.status)
+      if(data.data.status!==200){
+        redirect("/signup")
+      }
+      else {
+        redirect('/')
+      }
+    }
+  }
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" action={registration}>
           <div>
             <label
-              htmlFor="name"
+              htmlFor="fullName"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Full Name
             </label>
             <div className="mt-2">
               <input
-                id="name"
-                name="name"
-                type="name"
+                id="fullName"
+                name="fullName"
+                type="fullName"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />

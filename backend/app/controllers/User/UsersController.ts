@@ -11,31 +11,30 @@ export default class UsersController {
   }
   public async RegisterUser(ctx: HttpContext) {
     try {
-      // const payload = await this.Validator.RegisterUser(ctx)
-
       return this.Service.RegisterUser(await this.Validator.RegisterUser(ctx))
     } catch (error) {
-      return error.status
+      return {
+        status:400
+      }
     }
   }
-  public async LoginUser({request}: HttpContext) {
+  public async LoginUser({ request }: HttpContext) {
     //422
     try {
-      console.log('controller called')
       const payload = await this.Validator.LoginUser(request)
       return this.Service.LoginUser(payload)
     } catch (error) {
       return error
     }
- 
   }
-  public async Logout({auth}:HttpContext){
-// const user = auth.authenticate()
-try{
+  public async Logout({ auth }: HttpContext) {
 
-  return this.Service.Logout(auth)
-}catch(error){
-  return error.status
-}
+    try{
+
+      return this.Service.Logout(auth)
+    }catch(error){
+      return error.status
+    }
+      
   }
 }

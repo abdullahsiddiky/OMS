@@ -11,7 +11,6 @@ export default class UserQuery {
     try {
       const user = await User.verifyCredentials(payload.email, payload.password)
       const token = await User.accessTokens.create(user)
-      console.log(token.identifier)
       return {
         status: 200,
         token: token,
@@ -28,7 +27,6 @@ export default class UserQuery {
           status: 200,
         }
       }
-    
     } catch (error) {
       return {
         status: 401,

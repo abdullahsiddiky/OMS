@@ -43,8 +43,9 @@ export default function Login() {
         res.data.password
       );
       if (data.data.status == 200) {
-        cookies().set("token", data.data.token);
-        redirect("profile");
+        console.log(data.data.token)
+        cookies().set("token", data.data.token.token);
+        redirect("dashboard");
       } else {
         console.log(data);
         redirect("/");

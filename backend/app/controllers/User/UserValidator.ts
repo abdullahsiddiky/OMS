@@ -13,23 +13,23 @@ export default class UserValidator {
         password: vine.string().trim(),
       })
     )
-    return await createUserValidator.validate(ctx.request.all())
+
+    return await createUserValidator.validate(ctx.request.body())
   }
 
-  public async LoginUser(request:any){
-
+  public async LoginUser(request: any) {
     const loginUserValidator = vine.compile(
       vine.object({
-        email:vine.string().unique(async (db, value)=>{
+        email: vine.string().unique(async (db, value) => {
           const user = await db.from('users').where('email', value).first()
           return user
         }),
-        password:vine.string().trim()
+        password: vine.string().trim(),
       })
     )
-    const requestData = request.body;
+    const requestData = request.body
     console.log('validator called', requestData)
-  
-      return await loginUserValidator.validate(request.body())
+
+    return await loginUserValidator.validate(request.body())
   }
 }
