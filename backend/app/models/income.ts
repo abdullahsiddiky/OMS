@@ -10,8 +10,8 @@ export default class Income extends BaseModel {
   @column()
   declare title: string
 
-  @column()
-  declare category: string
+  // @column()
+  // declare category: string
 
   @column()
   declare amount: number

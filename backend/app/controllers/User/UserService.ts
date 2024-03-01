@@ -19,6 +19,18 @@ export default class userService {
   public AddDept(payload:any, auth:any){
     return this.Query.AddDept(payload, auth)
   }
+  public AddExpense(payload:any, auth:any){
+    return this.Query.AddExpense(payload, auth)
+  }
+  public AddIncome(payload:any, auth:any){
+    return this.Query.AddIncome(payload, auth)
+  }
+  public ListDepartments(auth:any){
+    return this.Query.ListDepartments(auth)
+  }
+  public AddEmployee(payload:any, auth:any){
+    return this.Query.AddEmployee(payload, auth)
+  }
 
 }
 

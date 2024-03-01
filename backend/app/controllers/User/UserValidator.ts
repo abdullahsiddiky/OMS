@@ -40,4 +40,37 @@ export default class UserValidator {
     )
     return await departmentValidator.validate(request.body())
   }
+  public async AddExpense(request:any){
+    const expenseValidator = vine.compile(
+      vine.object({
+        title: vine.string().trim(),
+        expense:vine.string().trim(),
+        amount:vine.number()
+      })
+    )
+    return await expenseValidator.validate(request.body())
+  }
+  public async AddIncome(request:any){
+    const incomeValidator = vine.compile(
+      vine.object({
+        title: vine.string().trim(),
+        amount:vine.number()
+      })
+    )
+    return await incomeValidator.validate(request.body())
+  }
+  public async AddEmployee(request:any){
+    const employeeValidator = vine.compile(
+      vine.object({
+        name: vine.string().trim(),
+        email: vine.string().unique(async (db, value) => {
+          const employee = await db.from('employees').where('email', value).first()
+          return !employee
+        }),
+        departmentId:vine.number(),
+        salary:vine.number()
+      })
+    )
+    return employeeValidator.validate(request.body())
+  }
 }

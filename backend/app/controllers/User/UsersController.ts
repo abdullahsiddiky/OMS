@@ -43,6 +43,41 @@ export default class UsersController {
     }catch(error){
       return error
     }
+  }
+  public async AddExpense({request, auth}:HttpContext){
 
+    try{
+      return this.Service.AddExpense(await this.Validator.AddExpense(request), auth)
+    }catch(error){
+      return error
+    }
+  }
+  public async AddIncome({request, auth}:HttpContext){
+    console.log("hit income")
+    try{
+      return this.Service.AddIncome(await this.Validator.AddIncome(request),auth)
+    }catch(error){
+      return error
+    }
+  }
+  public async ListDepartments({auth}:HttpContext){
+    console.log('list hit')
+    try{
+      return this.Service.ListDepartments(auth)
+    }catch(error){
+      return {
+        status:200
+      }
+    }
+  }
+  public async AddEmployee({request,auth}:HttpContext){
+    try{
+      const payload = await this.Validator.AddEmployee(request)
+      return this.Service.AddEmployee(payload, auth)
+    }catch(error){
+      return{
+        status:422
+      }
+    }
   }
 }
