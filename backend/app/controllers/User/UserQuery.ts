@@ -110,7 +110,7 @@ export default class UserQuery {
         salary: payload.salary,
       })
       return {
-        status:200
+        status: 200,
       }
     } catch (error) {
       return {
@@ -118,21 +118,36 @@ export default class UserQuery {
       }
     }
   }
-  public async ListEmployee(payload:any){
-   try{
-     const department = await Department.query().where('id', payload.deptId).preload('employees')
-     return {
-      status:200,
-      department
-     }
-   }catch(error){
-    return{
-      status:422
+  public async ListEmployee(payload: any) {
+    try {
+      const department = await Department.query().where('id', payload.deptId).preload('employees')
+      return {
+        status: 200,
+        department,
+      }
+    } catch (error) {
+      return {
+        status: 422,
+      }
     }
-   }
   }
-  public async EmployeeInformation(payload:any){
+  public async EmployeeInformation(payload: any) {
     const employee = await Employee.query().where('id', payload.employeeId).first()
-    return employee
+    return {
+      status: 200,
+      employee,
+    }
+  }
+  public async DeleteEmployee(payload: any) {
+    try {
+      await Employee.query().where('id', payload.employeeId).delete()
+      return {
+        status: 200,
+      }
+    } catch (error) {
+      return {
+        status: 422,
+      }
+    }
   }
 }

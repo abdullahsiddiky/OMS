@@ -77,12 +77,20 @@ export default class UserValidator {
     )
     return listEmployeeValidator.validate(request.body())
   }
-  public async EmployeeInformation(request:any){
+  public async EmployeeInformation(request: any) {
     const EmployeeInformationValidator = vine.compile(
       vine.object({
         employeeId: vine.number(),
       })
     )
     return EmployeeInformationValidator.validate(request.body())
+  }
+  public async DeleteEmployee(request: any) {
+    const DeleteEmployeeValidator = vine.compile(
+      vine.object({
+        employeeId: vine.number(),
+      })
+    )
+    return DeleteEmployeeValidator.validate(request.body())
   }
 }

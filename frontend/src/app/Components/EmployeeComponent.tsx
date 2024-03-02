@@ -33,7 +33,7 @@ export default async function Employees({ deptId }: EmployeesProps) {
         person.employees.map((d:any)=>(
           <tr key={person.id} className="flex justify-between gap-x-6 py-5">
              <td key={d.id} className="py-4 px-6">
-              <p className="text-sm font-semibold leading-6 text-gray-900 hover:bg-red-700 justify-center">
+              <p className="text-sm font-semibold leading-6 text-gray-900 hover:bg-red-700">
                  <a href={"/employee/" + d.id}>
                    {d.name}
                  </a>

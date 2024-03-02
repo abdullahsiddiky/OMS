@@ -27,7 +27,7 @@ export default async function Deparment() {
       item.departments.map((d: any) => (
         <tr key={d.id} className="flex justify-between gap-x-6 py-5">
           <td className="py-4 px-6">
-            <p className="text-sm font-semibold leading-6 text-gray-900">
+            <p className="text-sm font-semibold leading-6 text-gray-900 hover:bg-red-700">
               <a href={`/department/${d.id}`}>{d.deptName}</a>
             </p>
           </td>

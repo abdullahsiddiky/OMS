@@ -2,6 +2,7 @@
 import { HttpContext } from '@adonisjs/core/http'
 import UserValidator from './UserValidator.ts'
 import userService from './UserService.ts'
+import { Console } from 'console'
 export default class UsersController {
   private Validator: UserValidator
   private Service: userService
@@ -85,15 +86,22 @@ export default class UsersController {
       }
     }
   }
-  public async EmployeeInformation({request}:HttpContext){
-   try{
-    console.log(request.body())
-return this.Service.EmployeeInformation(await this.Validator.EmployeeInformation(request))
-   }catch(error){
-    return {
-      status:422
+  public async EmployeeInformation({ request }: HttpContext) {
+    try {
+      return this.Service.EmployeeInformation(await this.Validator.EmployeeInformation(request))
+    } catch (error) {
+      return {
+        status: 422,
+      }
     }
-   } 
   }
-
+  public async DeleteEmployee({ request }: HttpContext) {
+    try {
+      return this.Service.DeleteEmployee(await this.Validator.DeleteEmployee(request))
+    } catch (error) {
+      return {
+        status: 422,
+      }
+    }
+  }
 }
