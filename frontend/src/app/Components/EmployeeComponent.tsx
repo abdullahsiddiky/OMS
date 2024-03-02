@@ -1,4 +1,4 @@
-import axios from "../service/instance";
+import axios from "../service/instance";1
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 interface EmployeesProps {
@@ -9,7 +9,6 @@ export default async function Employees({ deptId }: EmployeesProps) {
   if (!token) {
     redirect("/");
   }
-
   const data = await axios.post(
     "users/list_employee",
     {
@@ -21,33 +20,6 @@ export default async function Employees({ deptId }: EmployeesProps) {
       },
     }
   );
-  const persons = [
-    {
-      id: 1,
-      name: "Mr A",
-    },
-    {
-      id: 2,
-      name: "Mr B",
-    },
-    {
-      id: 3,
-      name: "Mr C",
-    },
-    {
-      id: 4,
-      name: "Mr D",
-    },
-    {
-      id: 5,
-      name: "Mr E",
-    },
-    {
-      id: 6,
-      name: "Mr F",
-    },
-  ];
-  console.log('check')
   return (
 <div className="border border-gray-800">
   <table className="min-w-full divide-y divide-gray-100">
@@ -61,29 +33,17 @@ export default async function Employees({ deptId }: EmployeesProps) {
         person.employees.map((d:any)=>(
           <tr key={person.id} className="flex justify-between gap-x-6 py-5">
              <td key={d.id} className="py-4 px-6">
-              <p className="text-sm font-semibold leading-6 text-gray-900">
+              <p className="text-sm font-semibold leading-6 text-gray-900 hover:bg-red-700 justify-center">
                  <a href={"/employee/" + d.id}>
-                   {d.id} {d.name}
+                   {d.name}
                  </a>
                </p>
              </td>
            </tr>
         ))
-        
       ))}
     </tbody>
   </table>
 </div>
   );
 }
-// {person.employees.map((d: any) => (
-//   <tr key={person.id} className="flex justify-between gap-x-6 py-5">
-//   <td key={d.id} className="py-4 px-6">
-//     <p className="text-sm font-semibold leading-6 text-gray-900">
-//       <a href={"/employee/" + d.id}>
-//         {d.id} {d.name}
-//       </a>
-//     </p>
-//   </td>
-// </tr>
-// ))}

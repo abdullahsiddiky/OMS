@@ -131,4 +131,8 @@ export default class UserQuery {
     }
    }
   }
+  public async EmployeeInformation(payload:any){
+    const employee = await Employee.query().where('id', payload.employeeId).first()
+    return employee
+  }
 }

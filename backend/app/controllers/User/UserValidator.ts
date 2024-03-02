@@ -77,4 +77,12 @@ export default class UserValidator {
     )
     return listEmployeeValidator.validate(request.body())
   }
+  public async EmployeeInformation(request:any){
+    const EmployeeInformationValidator = vine.compile(
+      vine.object({
+        employeeId: vine.number(),
+      })
+    )
+    return EmployeeInformationValidator.validate(request.body())
+  }
 }

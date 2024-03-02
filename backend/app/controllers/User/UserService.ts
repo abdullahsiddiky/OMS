@@ -34,6 +34,8 @@ export default class userService {
   public ListEmployee(payload:any ){
     return this.Query.ListEmployee(payload)
   }
-
+  public EmployeeInformation(payload:any){
+    return this.Query.EmployeeInformation(payload)
+  }
 }
 

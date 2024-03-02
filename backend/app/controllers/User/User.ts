@@ -16,6 +16,7 @@ router.group(() => {
     router.get('list_departments',[UsersController,'ListDepartments'])
     router.post('add_employee',[UsersController,'AddEmployee'])
     router.post('list_employee', [UsersController,'ListEmployee'])
+    router.post('employee_information', [UsersController,'EmployeeInformation'])
     router.post('logout',[UsersController,'Logout'])
     
   }).use(middleware.auth())

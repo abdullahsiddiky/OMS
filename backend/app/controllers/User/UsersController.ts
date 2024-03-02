@@ -85,4 +85,15 @@ export default class UsersController {
       }
     }
   }
+  public async EmployeeInformation({request}:HttpContext){
+   try{
+    console.log(request.body())
+return this.Service.EmployeeInformation(await this.Validator.EmployeeInformation(request))
+   }catch(error){
+    return {
+      status:422
+    }
+   } 
+  }
+
 }
