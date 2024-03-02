@@ -50,7 +50,6 @@ export default class UsersController {
     }
   }
   public async AddIncome({ request, auth }: HttpContext) {
-    console.log('hit income')
     try {
       return this.Service.AddIncome(await this.Validator.AddIncome(request), auth)
     } catch (error) {
@@ -58,7 +57,6 @@ export default class UsersController {
     }
   }
   public async ListDepartments({ auth }: HttpContext) {
-    console.log('list hit')
     try {
       return this.Service.ListDepartments(auth)
     } catch (error) {
@@ -77,13 +75,13 @@ export default class UsersController {
       }
     }
   }
-  public async ListEmployee({ request}: HttpContext) {
+  public async ListEmployee({ request }: HttpContext) {
     try {
       const payload = await this.Validator.ListEmployee(request)
       return this.Service.ListEmployee(payload)
     } catch (error) {
       return {
-        status:422
+        status: 422,
       }
     }
   }

@@ -40,7 +40,6 @@ export default function Registration() {
         res.data.email,
         res.data.password
       );
-      // console.log(data.data.status)
       if(data.data.status!==200){
         redirect("/signup")
       }
@@ -88,7 +87,6 @@ export default function Registration() {
               />
             </div>
           </div>
-
           <div>
             <div className="flex items-center justify-between">
               <label

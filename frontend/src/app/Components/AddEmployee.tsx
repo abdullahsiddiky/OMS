@@ -56,8 +56,6 @@ export default async function AddEmployee() {
       departmentId: Number(formData.get("department")),
       salary: Number(formData.get("salary")),
     });
-    console.log(res);
-
     if (res.success) {
       const data: any = await axiosRequests(
         "users/add_employee",

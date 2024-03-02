@@ -13,7 +13,6 @@ export default class UserValidator {
         password: vine.string().trim(),
       })
     )
-
     return await createUserValidator.validate(ctx.request.body())
   }
 
@@ -27,12 +26,9 @@ export default class UserValidator {
         password: vine.string().trim(),
       })
     )
-    const requestData = request.body
-    console.log('validator called', requestData)
-
     return await loginUserValidator.validate(request.body())
   }
-  public async AddDept(request:any){
+  public async AddDept(request: any) {
     const departmentValidator = vine.compile(
       vine.object({
         deptname: vine.string().trim(),
@@ -40,26 +36,26 @@ export default class UserValidator {
     )
     return await departmentValidator.validate(request.body())
   }
-  public async AddExpense(request:any){
+  public async AddExpense(request: any) {
     const expenseValidator = vine.compile(
       vine.object({
         title: vine.string().trim(),
-        expense:vine.string().trim(),
-        amount:vine.number()
+        expense: vine.string().trim(),
+        amount: vine.number(),
       })
     )
     return await expenseValidator.validate(request.body())
   }
-  public async AddIncome(request:any){
+  public async AddIncome(request: any) {
     const incomeValidator = vine.compile(
       vine.object({
         title: vine.string().trim(),
-        amount:vine.number()
+        amount: vine.number(),
       })
     )
     return await incomeValidator.validate(request.body())
   }
-  public async AddEmployee(request:any){
+  public async AddEmployee(request: any) {
     const employeeValidator = vine.compile(
       vine.object({
         name: vine.string().trim(),
@@ -67,16 +63,16 @@ export default class UserValidator {
           const employee = await db.from('employees').where('email', value).first()
           return !employee
         }),
-        departmentId:vine.number(),
-        salary:vine.number()
+        departmentId: vine.number(),
+        salary: vine.number(),
       })
     )
     return employeeValidator.validate(request.body())
   }
-  public async ListEmployee(request:any){
-    const listEmployeeValidator  = vine.compile(
+  public async ListEmployee(request: any) {
+    const listEmployeeValidator = vine.compile(
       vine.object({
-        deptId:vine.number()
+        deptId: vine.number(),
       })
     )
     return listEmployeeValidator.validate(request.body())
