@@ -104,4 +104,14 @@ export default class UsersController {
       }
     }
   }
+  public async UpdateExpense({ request, auth }: HttpContext) {
+    try {
+      return this.Service.UpdateExpense(await this.Validator.UpdateExpense(request), auth)
+    } catch (error) {
+      return {
+        status: 422,
+      }
+    }
+  }
+  
 }

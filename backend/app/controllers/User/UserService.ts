@@ -40,4 +40,7 @@ export default class userService {
   public DeleteEmployee(payload: any) {
     return this.Query.DeleteEmployee(payload)
   }
+  public UpdateExpense(payload:any, auth:any){
+    return this.Query.UpdateExpense(payload, auth)
+  }
 }

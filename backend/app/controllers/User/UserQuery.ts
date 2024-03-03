@@ -3,6 +3,8 @@ import Employee from '#models/employee'
 import Expense from '#models/expense'
 import Income from '#models/income'
 import User from '#models/user'
+import { format } from 'date-fns'
+import { emit } from 'process'
 export default class UserQuery {
   public async RegisterUser(payload: any) {
     if (await User.create(payload)) {
@@ -149,5 +151,33 @@ export default class UserQuery {
         status: 422,
       }
     }
+  }
+  public async UpdateExpense(payload: any, auth: any) {
+    const formatDate = (date: any) => {
+      const year = date.getFullYear()
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const day = String(date.getDate()).padStart(2, '0')
+      return `${year}-${month}-${day}`
+    }
+    const user = await auth.authenticate()
+    const startDate = formatDate(payload.startDate).toString()
+    const endDate = formatDate(payload.endDate).toString()
+    // const expense = await User.query()
+    //   .where('id', user.id)
+    //   .preload('expenses', (query) => {
+    //      query.whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
+    //   })
+    const expense = await User.query()
+      .where('id', user.id)
+      .preload('expenses', (query) => {
+        query.whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate]).select('category').sum('amount')
+        .groupBy('category')
+      })
+     
+
+    console.log(startDate)
+    console.log(endDate)
+    console.log(expense)
+    return expense
   }
 }

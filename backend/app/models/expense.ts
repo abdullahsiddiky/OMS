@@ -4,6 +4,7 @@ import User from './user.ts'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Expense extends BaseModel {
+  serializeExtras = true
   @column({ isPrimary: true })
   declare id: number
 

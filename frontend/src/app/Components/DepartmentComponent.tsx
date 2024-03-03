@@ -31,7 +31,6 @@ export default async function Deparment() {
               <a href={`/department/${d.id}`}>{d.deptName}</a>
             </p>
           </td>
-          {/* Add more table cells (td) for additional data */}
         </tr>
       ))
     )}
