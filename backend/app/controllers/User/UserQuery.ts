@@ -162,22 +162,22 @@ export default class UserQuery {
     const user = await auth.authenticate()
     const startDate = formatDate(payload.startDate).toString()
     const endDate = formatDate(payload.endDate).toString()
-    // const expense = await User.query()
-    //   .where('id', user.id)
-    //   .preload('expenses', (query) => {
-    //      query.whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
-    //   })
     const expense = await User.query()
       .where('id', user.id)
+      .select( ['id','full_name'])
       .preload('expenses', (query) => {
-        query.whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate]).select('category').sum('amount')
-        .groupBy('category')
+        query
+          .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
+          .select('category')
+          .sum('amount as total')
+          .groupBy('category').orderBy('total','desc')
+      }
+      )
+      .withAggregate('expenses',(q)=>{
+        q.sum('amount').as('net_total')
       })
      
-
-    console.log(startDate)
-    console.log(endDate)
-    console.log(expense)
+      console.log(expense)
     return expense
   }
 }

@@ -15,7 +15,11 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
 })
 
 export default class User extends compose(BaseModel, AuthFinder) {
-  serializeExtras = true
+  serializeExtras() {
+    return {
+      net_total: this.$extras.net_total,
+    }
+  }
   @column({ isPrimary: true })
   declare id: number
 
@@ -34,14 +38,14 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 
-  @hasMany(()=> Department)
+  @hasMany(() => Department)
   declare departments: HasMany<typeof Department>
 
-  @hasMany (()=> Expense)
-  declare expenses: HasMany <typeof Expense>
+  @hasMany(() => Expense)
+  declare expenses: HasMany<typeof Expense>
 
-  @hasMany (()=> Income)
-  declare incomes: HasMany <typeof Income> 
+  @hasMany(() => Income)
+  declare incomes: HasMany<typeof Income>
 
   static accessTokens = DbAccessTokensProvider.forModel(User)
   currentAccessToken?: AccessToken
