@@ -18,6 +18,7 @@ router
         router.post('employee_information', [UsersController, 'EmployeeInformation'])
         router.post('delete_employee', [UsersController, 'DeleteEmployee'])
         router.post('update_expense',[UsersController,'UpdateExpense'])
+        router.post('update_income',[UsersController,'UpdateIncome'])
         router.post('logout', [UsersController, 'Logout'])
       })
       .use(middleware.auth())

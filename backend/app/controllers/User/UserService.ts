@@ -43,4 +43,7 @@ export default class userService {
   public UpdateExpense(payload:any, auth:any){
     return this.Query.UpdateExpense(payload, auth)
   }
+  public UpdateIncome(payload:any, auth:any){
+    return this.Query.UpdateIncome(payload, auth)
+  }
 }

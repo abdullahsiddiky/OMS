@@ -176,8 +176,10 @@ export default class UserQuery {
       .withAggregate('expenses',(q)=>{
         q.sum('amount').as('net_total')
       })
-     
-      console.log(expense)
     return expense
+  }
+  public async UpdateIncome(payload:any, auth:any){
+    return payload
+
   }
 }

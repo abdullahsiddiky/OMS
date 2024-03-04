@@ -113,5 +113,13 @@ export default class UsersController {
       }
     }
   }
-  
+  public async UpdateIncome({ request, auth }: HttpContext) {
+    try {
+      return this.Service.UpdateIncome(await this.Validator.UpdateIncome(request), auth)
+    } catch (error) {
+      return {
+        status: 422,
+      }
+    }
+  }
 }

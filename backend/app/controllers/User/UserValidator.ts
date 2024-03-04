@@ -93,7 +93,7 @@ export default class UserValidator {
     )
     return DeleteEmployeeValidator.validate(request.body())
   }
-  public async UpdateExpense(request:any){
+  public async UpdateExpense(request: any) {
     const UpdateExpenseValidator = vine.compile(
       vine.object({
         startDate: vine.date(),
@@ -101,5 +101,14 @@ export default class UserValidator {
       })
     )
     return UpdateExpenseValidator.validate(request.body())
+  }
+  public async UpdateIncome(request: any) {
+    const UpdateInocmeValidator = vine.compile(
+      vine.object({
+        startDate: vine.date(),
+        endDate: vine.date(),
+      })
+    )
+    return UpdateInocmeValidator.validate(request.body())
   }
 }
