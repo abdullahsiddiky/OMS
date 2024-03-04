@@ -179,7 +179,26 @@ export default class UserQuery {
     return expense
   }
   public async UpdateIncome(payload:any, auth:any){
-    return payload
-
+    const formatDate = (date: any) => {
+      const year = date.getFullYear()
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const day = String(date.getDate()).padStart(2, '0')
+      return `${year}-${month}-${day}`
+    }
+    const user = await auth.authenticate()
+    const startDate = formatDate(payload.startDate).toString()
+    const endDate = formatDate(payload.endDate).toString()
+    const income = await User.query()
+      .where('id', user.id)
+      .select( ['id','full_name'])
+      .preload('incomes', (query)=>{
+        query
+          .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
+          .select('amount')
+          .orderBy('amount','desc')
+      }).withAggregate('incomes',(q)=>{
+        q.sum('amount').as('net_total')
+      })
+    return income
   }
 }
