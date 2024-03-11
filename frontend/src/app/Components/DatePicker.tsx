@@ -1,56 +1,43 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import { z } from "zod";
+
 export default function DatePicker() {
-  const token = cookies().get("token")?.value;
-  if (!token) {
-    redirect("/");
-  }
-  // const formatDate = (date: any) => {
-  //   const year = date.getFullYear();
-  //   const month = String(date.getMonth() + 1).padStart(2, "0");
-  //   const day = String(date.getDate()).padStart(2, "0");
-  //   return `${year}-${month}-${day}`;
-  // };
-  // const date = new Date();
-  // const endDate = formatDate(date).toString();
-  const startDate = cookies().get("startDate")?.value;
-  const endDate = cookies().get("endDate")?.value;
-  // date.setDate(date.getDate() - 30);
-  // const startDate = formatDate(date).toString();
+  const date = new Date();
   async function AddDate(formData: FormData) {
     "use server";
     const validationSchema = z.object({
-      startDate: z.string(),
-      endDate: z.string(),
+      startdate: z.string(),
+      enddate: z.string(),
     });
     const res = validationSchema.safeParse({
-      startDate: formData.get("startDate"),
-      endDate: formData.get("endDate"),
+      startdate: formData.get("startdate"),
+      enddate: formData.get("enddate"),
     });
     if (res.success) {
-      cookies().set("startDate", res.data.startDate);
-      cookies().set("endDate", res.data.endDate);
+      cookies().set("startDate", res.data.startdate);
+      cookies().set("endDate", res.data.enddate);
+      redirect("dashboard");
     }
   }
   return (
     <div>
       <form action={AddDate}>
-        <label htmlFor="startDate">Start Date</label>
+        <label htmlFor="startdate">Start Date</label>
         <input
           className=" border border-gray-300 text-gray-900 text-md rounded-md m-1  w- ps-10 p-2.5"
           type="date"
-          id="startDate"
-          name="startDate"
-          value={startDate}
+          id="startdate"
+          name="startdate"
+          defaultValue={cookies().get("startDate")?.value}
         />
-        <label htmlFor="endDate">End Date</label>
+        <label htmlFor="enddate">End Date</label>
         <input
           className=" border border-gray-300 text-gray-900 text-md rounded-md m-1  w- ps-10 p-2.5"
           type="date"
-          id="endDate"
-          name="endDate"
-          defaultValue={endDate}
+          id="enddate"
+          name="enddate"
+          defaultValue={cookies().get("endDate")?.value}
         />
         <button className="bg-green-800 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full ml-2">
           Update
