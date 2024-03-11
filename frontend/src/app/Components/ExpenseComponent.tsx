@@ -1,7 +1,7 @@
-
-
+import { cookies } from "next/headers";
 export default function Expences() {
-  // export default function Expences() {
+  const startDate = cookies().get("startDate");
+  const endStart = cookies().get("endDate");
   const expense = [
     {
       id: 1,

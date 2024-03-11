@@ -1,7 +1,6 @@
-
-import { cookies } from 'next/headers'
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { z } from 'zod';
+import { z } from "zod";
 export default function DatePicker() {
   const token = cookies().get("token")?.value;
   if (!token) {
@@ -16,36 +15,35 @@ export default function DatePicker() {
   const date = new Date();
   const endDate = formatDate(date).toString();
   date.setDate(date.getDate() - 30);
-  const startDate = formatDate(date).toString()
+  const startDate = formatDate(date).toString();
   async function AddDate(formData: FormData) {
     "use server";
-    // const validationSchema = z.object({
-    //   startDate: z.string(),
-    //   endDate: z.string(),
-    // });
-    // const res = validationSchema.safeParse({
-    //   startDate: formData.get("startDate"),
-    //   endDate:formData.get("endDate"),
-    // });
-    // if (res.success) {
-    //   console.log(res.data.endDate)
-    // }
-    // console.log(formData.get('endDate'))
-
-      
+    const validationSchema = z.object({
+      startDate: z.string(),
+      endDate: z.string(),
+    });
+    const res = validationSchema.safeParse({
+      startDate: formData.get("startDate"),
+      endDate: formData.get("endDate"),
+    });
+    if (res.success) {
+      console.log(res.data.endDate);
+      cookies().set("startDate", res.data.startDate);
+      cookies().set("endDate", res.data.endDate);
+    }
   }
   return (
     <div>
       <form action={AddDate}>
-        <label htmlFor="startdate">Start Date</label>
+        <label htmlFor="startDate">Start Date</label>
         <input
           className=" border border-gray-300 text-gray-900 text-md rounded-md m-1  w- ps-10 p-2.5"
           type="date"
-          id="startdate"
-          name="startdate"
+          id="startDate"
+          name="startDate"
           defaultValue={startDate}
         />
-        <label htmlFor="enddate">End Date</label>
+        <label htmlFor="endDate">End Date</label>
         <input
           className=" border border-gray-300 text-gray-900 text-md rounded-md m-1  w- ps-10 p-2.5"
           type="date"

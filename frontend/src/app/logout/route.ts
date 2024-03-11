@@ -16,6 +16,8 @@ export async function GET() {
   );
   if (res.data.status === 200) {
     cookies().delete("token");
+    cookies().delete("startDate");
+    cookies().delete("endDate");
     redirect("/");
   }
   // try {
