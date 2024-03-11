@@ -42,7 +42,7 @@ export default async function Login() {
       email: formData.get("email"),
       password: formData.get("password"),
     });
-    // console.log(res)
+    console.log(res)
     if (res.success) {
       const data: any = await axiosRequests(
         "users/login",
