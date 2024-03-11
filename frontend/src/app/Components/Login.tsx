@@ -2,11 +2,18 @@ import axios from "../service/instance";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-export default function Login() {
+export default async function Login() {
   const id = cookies().get("token")?.value;
   if (id) {
     redirect("dashboard");
   }
+  //  function formatDate (date: any) {
+  //   // 'use server'
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, "0");
+  //   const day = String(date.getDate()).padStart(2, "0");
+  //   return `${year}-${month}-${day}`;
+  // };
   async function axiosRequests(url: string, email: string, password: string) {
     "use server";
     try {
@@ -27,6 +34,13 @@ export default function Login() {
   }
   async function login(formData: FormData) {
     "use server";
+    function formatDate (date: any) {
+      // 'use server'
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    };
     const validationSchema = z.object({
       email: z.string().email(),
       password: z.string(),
@@ -44,7 +58,14 @@ export default function Login() {
       );
       if (data.data.status == 200) {
         console.log(data.data.token)
+        const date = new Date();
+        const endDate =   (formatDate(date).toString());
+        date.setDate(date.getDate() - 30);
+        const startDate =  formatDate(date).toString()
         cookies().set("token", data.data.token.token);
+        console.log(startDate)
+        cookies().set('startDate', startDate)
+        cookies().set('endDate',endDate)
         redirect("dashboard");
       } else {
         console.log(data);

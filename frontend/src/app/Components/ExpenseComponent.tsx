@@ -1,4 +1,7 @@
+
+
 export default function Expences() {
+  // export default function Expences() {
   const expense = [
     {
       id: 1,
@@ -35,15 +38,17 @@ export default function Expences() {
       name: "Miscellaneous",
       amount: 150,
     },
-    
-    
-  
   ];
   const totalExpense = expense.reduce(
     (total, expense) => total + expense.amount,
     0
   );
 
+  // if(data){
+  //   console.log('true')
+  // }else{
+  //   console.log('no')
+  // }
   return (
     <div>
       <div className="border border-gray-500 rounded h-[calc(100vh-450px)] overflow-y-auto">

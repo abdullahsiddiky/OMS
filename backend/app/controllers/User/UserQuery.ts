@@ -3,8 +3,7 @@ import Employee from '#models/employee'
 import Expense from '#models/expense'
 import Income from '#models/income'
 import User from '#models/user'
-import { format } from 'date-fns'
-import { emit } from 'process'
+
 export default class UserQuery {
   public async RegisterUser(payload: any) {
     if (await User.create(payload)) {
@@ -162,6 +161,7 @@ export default class UserQuery {
     const user = await auth.authenticate()
     const startDate = formatDate(payload.startDate).toString()
     const endDate = formatDate(payload.endDate).toString()
+    console.log('hit expense')
     const expense = await User.query()
       .where('id', user.id)
       .select( ['id','full_name'])
@@ -176,7 +176,26 @@ export default class UserQuery {
       .withAggregate('expenses',(q)=>{
         q.sum('amount').as('net_total')
       })
-    return expense
+      const income = await User.query()
+      .where('id', user.id)
+      .select( ['id','full_name'])
+      .preload('incomes', (query)=>{
+        query
+          .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
+          .select('amount')
+          .orderBy('amount','desc')
+      }).withAggregate('incomes',(q)=>{
+        q.sum('amount').as('net_total')
+      })
+console.log('expense')
+console.log(expense)
+console.log('income')
+console.log(income)
+      return{
+        status:200,
+        expense,
+        income
+      }
   }
   public async UpdateIncome(payload:any, auth:any){
     const formatDate = (date: any) => {
@@ -185,6 +204,7 @@ export default class UserQuery {
       const day = String(date.getDate()).padStart(2, '0')
       return `${year}-${month}-${day}`
     }
+    console.log('hit income')
     const user = await auth.authenticate()
     const startDate = formatDate(payload.startDate).toString()
     const endDate = formatDate(payload.endDate).toString()
@@ -199,6 +219,10 @@ export default class UserQuery {
       }).withAggregate('incomes',(q)=>{
         q.sum('amount').as('net_total')
       })
-    return income
+
+    return {
+      status:200,
+      income
+    }
   }
 }

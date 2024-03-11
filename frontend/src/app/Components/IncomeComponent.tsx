@@ -1,4 +1,5 @@
 import { Col, Row } from "antd";
+
 export default function Income() {
   const income = [
     {
