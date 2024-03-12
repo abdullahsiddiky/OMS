@@ -164,65 +164,66 @@ export default class UserQuery {
     console.log('hit expense')
     const expense = await User.query()
       .where('id', user.id)
-      .select( ['id','full_name'])
+      .select(['id', 'full_name'])
       .preload('expenses', (query) => {
         query
           .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
           .select('category')
           .sum('amount as total')
-          .groupBy('category').orderBy('total','desc')
-      }
-      )
-      .withAggregate('expenses',(q)=>{
+          .groupBy('category')
+          .orderBy('total', 'desc')
+      })
+      .withAggregate('expenses', (q) => {
         q.sum('amount').as('net_total')
       })
-      const income = await User.query()
+    const income = await User.query()
       .where('id', user.id)
-      .select( ['id','full_name'])
-      .preload('incomes', (query)=>{
+      .select(['id', 'full_name'])
+      .preload('incomes', (query) => {
         query
           .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
           .select('amount')
-          .orderBy('amount','desc')
-      }).withAggregate('incomes',(q)=>{
+          .orderBy('amount', 'desc')
+      })
+      .withAggregate('incomes', (q) => {
         q.sum('amount').as('net_total')
       })
-console.log('expense')
-console.log(expense)
-console.log('income')
-console.log(income)
-      return{
-        status:200,
-        expense,
-        income
-      }
+    console.log('expense')
+    console.log(expense)
+    console.log('income')
+    console.log(income)
+    return {
+      status: 200,
+      expense,
+      income,
+    }
   }
-  public async UpdateIncome(payload:any, auth:any){
+  public async UpdateIncome(payload: any, auth: any) {
     const formatDate = (date: any) => {
       const year = date.getFullYear()
       const month = String(date.getMonth() + 1).padStart(2, '0')
       const day = String(date.getDate()).padStart(2, '0')
       return `${year}-${month}-${day}`
     }
-    console.log('hit income')
     const user = await auth.authenticate()
     const startDate = formatDate(payload.startDate).toString()
     const endDate = formatDate(payload.endDate).toString()
     const income = await User.query()
       .where('id', user.id)
-      .select( ['id','full_name'])
-      .preload('incomes', (query)=>{
+      .select(['id', 'full_name'])
+      .preload('incomes', (query) => {
         query
           .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
-          .select('amount')
-          .orderBy('amount','desc')
-      }).withAggregate('incomes',(q)=>{
+          .select('id','title','amount')
+          .orderBy('amount', 'desc')
+      })
+      .withAggregate('incomes', (q) => {
         q.sum('amount').as('net_total')
       })
 
     return {
-      status:200,
-      income
+      status: 200,
+      income,
     }
   }
 }

@@ -1,6 +1,35 @@
-import { Col, Row } from "antd";
+import { string } from "zod";
+import axios from "../service/instance";
+import { cookies } from "next/headers";
 
-export default function Income() {
+export default async function Income() {
+  const token = cookies().get('token')?.value  || ''
+  const startDate = cookies().get('startDate')?.value || ''
+  const endDate = cookies().get('endDate')?.value || ''
+  async function axiosRequests(url: string, token:string, startDate: string, endDate: string) {
+    "use server";
+    try {
+      const result = await axios.post(
+        url,
+        {
+          startDate: startDate,
+          endDate: endDate,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
+    const data:any = await axiosRequests('users/update_income', token, startDate, endDate)
+    // console.log(data.data.income)
+  
   const income = [
     {
       id: 1,
@@ -33,6 +62,7 @@ export default function Income() {
       amount: 150,
     },
   ];
+
   const totalIncome = income.reduce(
     (total, income) => total + income.amount,
     0
@@ -50,22 +80,26 @@ export default function Income() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {income.map((income) => (
-              <tr key={income.id} className="">
-                <td className="py-4 px-6">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">
-                    {/* <a href="/">{expense.name}</a> */}
-                    <p>{income.name}</p>
-                  </p>
-                </td>
-                <td className="py-4 px-6">{income.amount}</td>
-                <td className="py-4 px-6">
-                  <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-                    delete
-                  </button>
-                </td>
+            {data.data.income.map((income:any) => (
+              income.incomes.map((item:any)=>(
+
+                  <tr key={item.id} className="">
+                    <td className="py-4 px-6">
+                      <p className="text-sm font-semibold leading-6 text-gray-900">
+                        {/* <a href="/">{expense.name}</a> */}
+                        <p>{item.title}</p>
+                      </p>
+                    </td>
+                    <td className="py-4 px-6">{income.amount}</td>
+                    <td className="py-4 px-6">
+                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
+                        delete
+                      </button>
+                    </td>
               </tr>
-            ))}
+              ))
+            ))
+          }
           </tbody>
 
           <thead className="sticky bottom-0 bg-gray-400 w-full">
@@ -73,9 +107,15 @@ export default function Income() {
               <td className="py-4 px-6 text-sm font-semibold leading-6 text-gray-900">
                 Total
               </td>
-              <td className="py-4 px-6 text-sm font-semibold leading-6 text-gray-900">
-                {totalIncome}
+              {data.data.income.map((item:any)=>(
+
+              <td key={item.id}className="py-4 px-6 text-sm font-semibold leading-6 text-gray-900">
+                {/* {totalIncome} */}
+                <p>{item.net_total}</p>
               </td>
+              ))
+
+              }
               <td></td>
             </tr>
           </thead>
