@@ -161,7 +161,7 @@ export default class UserQuery {
     const user = await auth.authenticate()
     const startDate = formatDate(payload.startDate).toString()
     const endDate = formatDate(payload.endDate).toString()
-    console.log('hit expense')
+    // console.log('hit expense')
     const expense = await User.query()
       .where('id', user.id)
       .select(['id', 'full_name'])
@@ -174,28 +174,28 @@ export default class UserQuery {
           .orderBy('total', 'desc')
       })
       .withAggregate('expenses', (q) => {
-        q.sum('amount').as('net_total')
+        q.whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate]).sum('amount').as('net_total')
       })
-    const income = await User.query()
-      .where('id', user.id)
-      .select(['id', 'full_name'])
-      .preload('incomes', (query) => {
-        query
-          .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
-          .select('amount')
-          .orderBy('amount', 'desc')
-      })
-      .withAggregate('incomes', (q) => {
-        q.sum('amount').as('net_total')
-      })
-    console.log('expense')
-    console.log(expense)
-    console.log('income')
-    console.log(income)
+    // const income = await User.query()
+    //   .where('id', user.id)
+    //   .select(['id', 'full_name'])
+    //   .preload('incomes', (query) => {
+    //     query
+    //       .whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate])
+    //       .select('amount')
+    //       .orderBy('amount', 'desc')
+    //   })
+    //   .withAggregate('incomes', (q) => {
+    //     q.sum('amount').as('net_total')
+    //   })
+    // console.log('expense')
+    // console.log(expense)
+    // console.log('income')
+    // console.log(income)
     return {
       status: 200,
-      expense,
-      income,
+      expense
+   
     }
   }
   public async UpdateIncome(payload: any, auth: any) {
@@ -218,7 +218,7 @@ export default class UserQuery {
           .orderBy('amount', 'desc')
       })
       .withAggregate('incomes', (q) => {
-        q.sum('amount').as('net_total')
+        q.whereRaw('DATE(created_at) BETWEEN ? AND ?', [startDate, endDate]).sum('amount').as('net_total')
       })
 
     return {
