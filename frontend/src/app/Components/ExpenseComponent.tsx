@@ -80,7 +80,7 @@ export default async function Expences() {
   return (
     <div>
       <div className="border border-gray-500 rounded h-[calc(100vh-450px)] overflow-y-auto">
-        <table className="min-w-full divide-y divide-gray-100">
+        <table className="min-w-full divide-y divide-gray-100 flex flex-col h-full">
           <thead className="sticky top-0 bg-gray-400">
             <tr>
               <th className="py-3 px-5 text-left">Expenses</th>
