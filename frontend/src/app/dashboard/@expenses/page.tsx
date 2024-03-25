@@ -16,10 +16,10 @@ export default function Page() {
       <DatePicker />
       <div className="grid grid-col-4 gap-2">
         <div className="col-start-1 col-span-2 ">
-          <Expences  />
+          {/* <Expences  /> */}
         </div>
         <div className="col-start-3 col-span-2">
-          <Income />
+          {/* <Income /> */}
         </div>
       </div>
     </div>

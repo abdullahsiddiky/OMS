@@ -1,15 +1,12 @@
-import Link from "next/navigation";
+import Modal from "./Modal/AddDepartmentComponent";
+
 export default function Operation() {
   return (
     <div>
       <div className="border border-gray-800 rounded mr-2">
         <div>
-          <a
-            href="/add_department"
-            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-          >
-            Add Department
-          </a>
+        <Modal/>
+
         </div>
         <div>
           <a
